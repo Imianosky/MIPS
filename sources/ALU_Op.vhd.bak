@@ -1,0 +1,28 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+
+entity ALU_Op is 
+
+  port(
+    i_Funct : in  std_logic_vector(5 downto 0);
+    i_ALUOp : in  std_logic_vector(1 downto 0);
+    o_ALUOp : out std_logic_vector(2 downto 0));
+    
+end ALU_Op;
+
+architecture arch1 of ALU_Op is
+
+begin 
+
+  o_ALUOp <= "010" when i_ALUOp = "00" or (i_ALUOp = "10" and i_Funct(3 downto 0) = "0000") else
+					
+             "110" when i_ALUOp = "01" or (i_ALUOp = "10" and i_Funct(3 downto 0) = "0010") else
+					
+             "000" when (i_ALUOp = "10" and i_Funct(3 downto 0) = "0100") else
+					
+             "001" when (i_ALUOp = "10" and i_Funct(3 downto 0) = "0101") else
+					
+             "111" when (i_ALUOp(1) = '1' and i_Funct(3 downto 0)= "1010");
+
+end arch1;
